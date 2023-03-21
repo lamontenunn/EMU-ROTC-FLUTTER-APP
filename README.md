@@ -1,16 +1,23 @@
-# rotc_emu
+The following are some of the key features of the application:
 
-A new Flutter project.
+1.Group Chat: A centralized platform for the entire battalion to communicate and collaborate with each other in real-time.
 
-## Getting Started
+Calendar events: Integration of ROTC-specific events such as drills, training, and meetings.
 
-This project is a starting point for a Flutter application.
+Multi-chat rooms: Creation of multiple chat rooms segregated by cadet rank, to facilitate communication within specific groups.
 
-A few resources to get you started if this is your first Flutter project:
+FTX events: Integration of information and updates related to Field Training Exercises (FTXs).
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Volunteer events: Real-time updates and information related to volunteer opportunities.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Up-to-date OPORDS, CONOPS, and DRAWS: Integration of critical information and documents related to upcoming events.
+
+Chain of command: Clear understanding of the chain of command and the current promotions, to facilitate seamless communication and collaboration.
+
+8.Personal Information: Cadets can view their personal information and update their contact information
+
+Personal Task Management: Cadets can view their personal tasks and have the ability to mark them as complete
+
+File Sharing: Cadets can share and access files within the application
+
+This application aims to streamline the communication and organization within the battalion, ultimately leading to improved efficiency and effectiveness. It will also provide a more secure and reliable platform for the sharing of sensitive information. The development of this application is a challenging yet rewarding experience, and I am excited to see it come to fruition.
