@@ -1,24 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'calendar_page.dart';
 import 'group_chat_page.dart';
+import 'login_or_signup_page.dart';
 import 'settings_page.dart';
+import 'user_model.dart';
+import 'user_provider.dart';
 
 void main() {
   runApp(MyApp());
 }
 
+
 class MyApp extends StatelessWidget {
+  late final UserModel currentUser;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: FirstPage(),
+    return ChangeNotifierProvider(
+      create: (_) => UserProvider(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: FirstPage(user: currentUser,),
+      ),
     );
   }
 }
 
+
 class FirstPage extends StatefulWidget {
-  const FirstPage({super.key});
+  final UserModel user;
+
+  const FirstPage({Key? key, required this.user}) : super(key: key);
+  
 
   @override
   State<FirstPage> createState() => _FirstPageState();
@@ -37,6 +50,8 @@ class _FirstPageState extends State<FirstPage> {
 
   @override
   Widget build(BuildContext context) {
+    UserModel currentUser = context.watch<UserProvider>().currentUser;
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -69,9 +84,13 @@ class _FirstPageState extends State<FirstPage> {
         controller: _pageController,
         onPageChanged: _onPageChanged,
         children: [
-          CalendarPage(),
-          GroupChatPage(),
-          SettingsPage(),
+    CalendarPage(),
+    Consumer<UserProvider>(
+      builder: (context, userProvider, child) {
+        return GroupChatPage(user: userProvider.currentUser);
+      },
+    ),
+    SettingsPage(),
         ],
       ),
     );

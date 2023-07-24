@@ -45,17 +45,17 @@ Future<List<QueryDocumentSnapshot>> getChannelsForUser() async {
 
 
 enum ArmyRank {
-  Private,
-  Private2,
-  PrivateFirstClass,
+ Private,
+  Private_First_Class,
   Specialist,
   Corporal,
   Sergeant,
-  StaffSergeant,
-  SergeantFirstClass,
-  MasterSergeant,
-  FirstSergeant,
-  CommandSergeantMajor,
+  Staff_Sergeant,
+  Sergeant_First_Class,
+  Master_Sergeant,
+  First_Sergeant,
+  Sergeant_Major,
+  Command_Sergeant_Major,
   SecondLieutenant,
   FirstLieutenant,
   Captain,
@@ -65,33 +65,33 @@ enum ArmyRank {
 }
 
 enum LeaderShipPos {
-BC,
-CSM,
-BNXO,
-S3,
-AS3,
-S1,
-AS1,
-S2,
-AS2,
-S4,
-AS4,
-S6,
-AS6,
-ACoCDR,
-A1PL,
-A2PL,
-BCoCDR,
-B1PL, 
-B2PL, 
-A1SG,
-AXO,
-A1PSG,
-A2PSG,
-B1SG,
-BXO,
-B1PSG,
 B2PSG,
+B1PSG,
+BXO,
+B1SG,
+A2PSG,
+A1PSG,
+AXO,
+A1SG,
+B2PL,
+B1PL,
+BCoCDR,
+A2PL,
+A1PL,
+ACoCDR,
+AS6,
+S6,
+AS4,
+S4,
+AS2,
+S2,
+AS1,
+S1,
+AS3,
+S3,
+BNXO,
+CSM,
+BC
 }
 
 class UserModel {
@@ -100,6 +100,7 @@ class UserModel {
   final String email;
   final UserType userType;
   final ArmyRank armyRank;
+  final String? profilePictureUrl;
 
   UserModel({
     required this.uid,
@@ -107,7 +108,11 @@ class UserModel {
     required this.email,
     required this.userType,
     required this.armyRank,
+    this.profilePictureUrl,
   });
 
 
+
+String get armyRankString => armyRank.toString().split('.').last;
+String get userTypeString => userType.toString().split('.').last;
 }

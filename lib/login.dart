@@ -15,11 +15,14 @@ class Login extends StatefulWidget {
 
 UserType parseUserType(String value) {
   return UserType.values.firstWhere((e) => e.toString() == 'UserType.$value');
+  
 }
 
 ArmyRank parseArmyRank(String value) {
   return ArmyRank.values.firstWhere((e) => e.toString() == 'ArmyRank.$value');
+  
 }
+
 
 class _LoginPageState extends State<Login> {
   final controllerEmail = TextEditingController();
@@ -48,7 +51,12 @@ class _LoginPageState extends State<Login> {
             icon: Icon(Icons.arrow_back_ios),
           ),
         ),
-        body: Center(
+
+
+        body: 
+
+
+         Center(
             child: SingleChildScrollView(
           padding: const EdgeInsets.all(8),
           child: Column(
@@ -170,46 +178,58 @@ class _LoginPageState extends State<Login> {
     final email = controllerEmail.text.trim();
     final password = controllerPassword.text.trim();
 
-    
-
     try {
       UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: controllerEmail.text.trim(),
         password: controllerPassword.text.trim(),
       );
 
-       DocumentSnapshot userData = await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).get();
+      DocumentSnapshot userData = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .get();
 
       String uid = userCredential.user!.uid;
       String username = userData['username'];
-      String email = userData['email'] ?? 'Not available'; // Assign a default value if the email is not available
+      String email = userData['email'] ??
+          'Not available'; // Assign a default value if the email is not available
       UserType userType = parseUserType(userData['userType']);
       ArmyRank armyRank = parseArmyRank(userData['armyRank']);
-      
 
       UserModel currentUser = UserModel(
-        uid: uid,
-        username: username,
-        email: email,
-        userType: userType,
-        armyRank: armyRank,
+    uid: uid,
+    username: username,
+    email: email,
+    userType: userType,
+    armyRank: armyRank,
   );
 
-      // Set user data in the provider
-      Provider.of<UserProvider>(context, listen: false).setUser(currentUser);
+  // Set user data in the provider
+  Provider.of<UserProvider>(context, listen: false).setUser(currentUser);
 
-      // Use the userType and armyRank in your app
+  showSuccess("User was successfully logged in!");
+  setState(() {
+    isLoggedIn = true;
+  });
 
-      showSuccess("User was successfully logged in!");
-      setState(() {
-        isLoggedIn = true;
-      });
+  // Add the navigation to the FirstPage
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FirstPage(user: currentUser,),
+      ),
+    );
+  });
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => FirstPage()),
-      );
+
+
+
+
+
+
+         
     } on FirebaseAuthException catch (e) {
       showError("An error occurred while logging in.");
     } catch (e) {
@@ -225,3 +245,4 @@ class _LoginPageState extends State<Login> {
     });
   }
 }
+
